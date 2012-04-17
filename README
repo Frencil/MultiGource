@@ -66,3 +66,24 @@ Please refer to ffmpeg documentation to understand these flags and how
 to tweak them. {OUTPUTFILE} is the path to the final video and its format
 will be automatically determined by the extension you choose.
 (e.g. file.mov, file.flv, file.mp4)
+
+
+MULTIGOURCE IN ACTION
+=====================
+
+Here are a couple of examples of Multigource in action:
+
+[SparkFun Original Open Source Projects]
+http://www.youtube.com/watch?v=Y4V-0y4qPSU
+
+[Open Source Packages used by SparkFun Electronics]
+http://www.youtube.com/watch?v=Jg2DYldS5U8
+
+Obviously I used MultiGource to visualize development in terms of
+SparkFun Electronics, my current employer. The first example is stuff
+we've built and open sourced, the second is a selection of FOSS we
+use in production (selected because it had complete Git logs).
+
+The titles indicating the names of packages were added to the output
+file after the fact using Adobe Premiere. Sadly, Gource is not yet
+robust enough to natively support something like that.
