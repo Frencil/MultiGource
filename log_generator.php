@@ -20,9 +20,9 @@ March 24, 2012
 /* Root path
    EXAMPLE: '/home/chris/repos';
 */
-$root_path   = '/Users/eric/Sites/gource';
+$root_path   = '/home/chris/repos';
 
-$ignore = [];
+$ignore = array();
 
 /* Color Regexes
    Gource has some default colors it applies based on file type but
@@ -39,21 +39,7 @@ $ignore = [];
              '/\|little_repos\/little_repo_B\//' => '#FF0000',
              '/\|weird_repos\/weird_repo_C\//'   => 'c75d39',
 */
-$color_reg = array(
-    '!\|mfb\/!'                   => 'main_green',
-    '!\|mfb-ap\/!'                => 'main_orange',
-    '!\|mfb-api\/!'               => 'main_red',
-    '!\|mfb-backend\/!'           => 'main_blue',
-    '!\|mfb-bpp\/!'               => 'main_yellow',
-    '!\|mfb-gis\/!'               => 'lightest_red',
-    '!\|mfb-smi\/!'               => 'lightest_blue',
-    '!\|mfbapiclientbundle\/!'    => 'lightest_green',
-    '!\|mfbcmsbundle\/!'          => 'lightest_yellow',
-    '!\|mfbdatabundle\/!'         => 'main_purple',
-    '!\|mfbdatafixturesbundle\/!' => 'darkest_green',
-    '!\|mfbdatatypebundle\/!'     => 'lightest_purple',
-    '!\|mfbredirectbundle\/!'     => 'darkest_purple',
-);
+$color_reg = array();
 
 /* Color Library
    Just a handful of colors that look good in Gource.
