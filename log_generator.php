@@ -20,7 +20,9 @@ March 24, 2012
 /* Root path
    EXAMPLE: '/home/chris/repos';
 */
-$root_path   = '/home/chris/repos';
+$root_path   = '/Users/eric/Sites/gource';
+
+$ignore = [];
 
 /* Color Regexes
    Gource has some default colors it applies based on file type but
@@ -37,7 +39,21 @@ $root_path   = '/home/chris/repos';
              '/\|little_repos\/little_repo_B\//' => '#FF0000',
              '/\|weird_repos\/weird_repo_C\//'   => 'c75d39',
 */
-$color_reg = array();
+$color_reg = array(
+    '!\|mfb\/!'                   => 'main_green',
+    '!\|mfb-ap\/!'                => 'main_orange',
+    '!\|mfb-api\/!'               => 'main_red',
+    '!\|mfb-backend\/!'           => 'main_blue',
+    '!\|mfb-bpp\/!'               => 'main_yellow',
+    '!\|mfb-gis\/!'               => 'lightest_red',
+    '!\|mfb-smi\/!'               => 'lightest_blue',
+    '!\|mfbapiclientbundle\/!'    => 'lightest_green',
+    '!\|mfbcmsbundle\/!'          => 'lightest_yellow',
+    '!\|mfbdatabundle\/!'         => 'main_purple',
+    '!\|mfbdatafixturesbundle\/!' => 'darkest_green',
+    '!\|mfbdatatypebundle\/!'     => 'lightest_purple',
+    '!\|mfbredirectbundle\/!'     => 'darkest_purple',
+);
 
 /* Color Library
    Just a handful of colors that look good in Gource.
@@ -152,8 +168,12 @@ function slurpCommits( $path = '.', $commits = array() ){
       if (!trim($line)) continue;
 
       // Append files
-      if ( (substr($line,0,2) == "M\t") || (substr($line,0,2) == "A\t") || (substr($line,0,2) == "D\t") ){
-        foreach ($ignore as $regex){  if (preg_match($regex,$line)) continue(2);  }
+      if ( (substr($line,0,2) == "M\t") || (substr($line,0,2) == "A\t") || (substr($line,0,2) == "D\t")){
+          if (!empty($ignore)) {
+              foreach ($ignore as $regex){
+                  if (preg_match($regex,$line)) continue(2);
+              }
+          }
         $files[] = substr($line,0,1) . '|' . substr($path,strlen($root_path)+1) . '/' . substr($line,2);
       }
 
@@ -181,7 +201,7 @@ function slurpCommits( $path = '.', $commits = array() ){
 	    $color = str_replace('#','',$rcolor);
 	}
       }
-      if (!$all_commits[$date]) $all_commits[$date] = '';
+      if (!isset($all_commits[$date]) || !$all_commits[$date]) $all_commits[$date] = '';
       $entry = $date . '|' . $author . '|' . $file . '|' . $color . "\n";
       $all_commits[$date] .= $entry;
     }
