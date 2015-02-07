@@ -22,6 +22,8 @@ March 24, 2012
 */
 $root_path   = '/home/chris/repos';
 
+$ignore = array();
+
 /* Color Regexes
    Gource has some default colors it applies based on file type but
    this can make it hard to tell which repos are which. Here you can
@@ -152,8 +154,12 @@ function slurpCommits( $path = '.', $commits = array() ){
       if (!trim($line)) continue;
 
       // Append files
-      if ( (substr($line,0,2) == "M\t") || (substr($line,0,2) == "A\t") || (substr($line,0,2) == "D\t") ){
-        foreach ($ignore as $regex){  if (preg_match($regex,$line)) continue(2);  }
+      if ( (substr($line,0,2) == "M\t") || (substr($line,0,2) == "A\t") || (substr($line,0,2) == "D\t")){
+          if (!empty($ignore)) {
+              foreach ($ignore as $regex){
+                  if (preg_match($regex,$line)) continue(2);
+              }
+          }
         $files[] = substr($line,0,1) . '|' . substr($path,strlen($root_path)+1) . '/' . substr($line,2);
       }
 
@@ -181,7 +187,7 @@ function slurpCommits( $path = '.', $commits = array() ){
 	    $color = str_replace('#','',$rcolor);
 	}
       }
-      if (!$all_commits[$date]) $all_commits[$date] = '';
+      if (!isset($all_commits[$date]) || !$all_commits[$date]) $all_commits[$date] = '';
       $entry = $date . '|' . $author . '|' . $file . '|' . $color . "\n";
       $all_commits[$date] .= $entry;
     }
